@@ -138,9 +138,9 @@ function FormCreate({ lastLocation, setActiveCreate, setActiveLogin, setLog, set
         }
     }
 
-    const openModalConfirm = (() => {
+    /*const openModalConfirm = (() => {
         setModalConfirmIsOpen(true)
-    })
+    })*/
 
     const closeModalConfirm = () => {
         setModalConfirmIsOpen(false);

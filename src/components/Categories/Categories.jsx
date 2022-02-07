@@ -2,9 +2,9 @@ import React from "react";
 import Styles from "./styles.module.css";
 import StylesApp from "../../App.module.css";
 import Category from "./Category";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Spinner from "../spinner/Spinner";
+//import axios from "axios";
+import { useState } from "react";
+//import Spinner from "../spinner/Spinner";
 
 export default function Categories({ handleCategory }) {
   //const baseURL = "http://localhost:8080/categories/all";
@@ -34,9 +34,9 @@ export default function Categories({ handleCategory }) {
       description:"300 departamentos",
     }
   ]
-  const [data, setData] = useState(categories);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [data] = useState(categories);
+  //const [loading, setLoading] = useState(true);
+  //const [errorMessage, setErrorMessage] = useState("");
 
   /*useEffect(() => {
     axios

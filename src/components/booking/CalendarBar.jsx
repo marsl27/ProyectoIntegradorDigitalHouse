@@ -8,7 +8,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import iconInfo from './icons/info-circle-solid.svg'
+//import iconInfo from './icons/info-circle-solid.svg'
 
 function CalendarBar(props) {
     const { valueDate, setValueDate } = props;
@@ -51,21 +51,21 @@ function CalendarBar(props) {
     });
     const classes = useStyles();
 
-    const handleChange = () => {
-        /*  String Date  - aaaa,mm,dd  */
+    /*const handleChange = () => {
+          String Date  - aaaa,mm,dd  
         if (startDate.getTime() >= new Date().setHours(0, 0, 0, 0)) {
             sessionStorage.setItem("startDate", startDate.toDateString());
             sessionStorage.setItem("endDate", endDate.toDateString());
             console.log(valueDate, "valueDate");
         }
-    };
+    };*/
 
     function handleDateChange(newValue) {
         setValueDate(newValue);
         if (newValue[0] != null) {
             let sortBooksMadeDate = booksMadeDate.sort((a, b) => a - b);
             const validacion = sortBooksMadeDate.find(element => newValue[0].setHours(0, 0, 0, 0) < element)
-            setMaxDate(validacion == undefined ? null : new Date(validacion))
+            setMaxDate(validacion === undefined ? null : new Date(validacion))
         }
         setDinamicValue(newValue);
     }
@@ -94,13 +94,13 @@ function CalendarBar(props) {
                     </div>
                 </div>
                 <div className={Styles.dateBarDayContainer}>
-                    {dinamicValue[0] != null && dinamicValue[0] != "" ?
+                    {dinamicValue[0] !== null && dinamicValue[0] != "" ?
                         <div className={Styles.dateBarDayBox}>
                             Desde: {dinamicValue[0].toLocaleDateString()}
                             <div className={Styles.dateBarTitleBoxClose} onClick={() => handleDayBoxClose([null, dinamicValue[1]])}>x</div>
                         </div>
                         : null}
-                    {dinamicValue[1] != null && dinamicValue[0] != "" ?
+                    {dinamicValue[1] !== null && dinamicValue[0] != "" ?
                         <div className={Styles.dateBarDayBox}>
                             Hasta: {dinamicValue[1].toLocaleDateString()}
                             <div className={Styles.dateBarTitleBoxClose} onClick={() => handleDayBoxClose([dinamicValue[0], null])}>x</div>
