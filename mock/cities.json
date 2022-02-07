@@ -1,0 +1,16 @@
+[{
+    "id":1,
+    "name":"Buenos Aires",
+    "country":"Argentina"
+},
+{
+    "id":2,
+    "name":"Mendoza",
+    "country":"Argentina"
+},
+{
+    "id":3,
+    "name":"Corrientes",
+    "country":"Argentina"
+}
+]
