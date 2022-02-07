@@ -1,0 +1,19 @@
+[{
+    "id":1,
+    "name":"grupo",
+    "surname":"uno",
+    "email":"grupo1@digital.com",
+    "password":1234567,
+    "role":"admin",
+    "token":"asdfghjklñ"
+},
+{
+    "id":2,
+    "name":"grupo",
+    "surname":"dos",
+    "email":"grupo2@digital.com",
+    "password":7654321,
+    "role":"user",
+    "token":"poiuytrew"
+}
+]
