@@ -6,18 +6,37 @@ import MapModal from './MapModal';
 import { Modal } from 'react-responsive-modal';
 import ScoreStar from '../Product/ScoreStar';
 import ScoreDescription from '../Product/ScoreDescription';
-//import Icons from "../Product/icons/Icons"
+import Icons from "../Product/icons/Icons";
+import ConfirmProductModal from '../Administrator/Product/ConfirmProductModal';
+import ModalProductAviso from "../Administrator/Product/ModalProductSucceed";
+import tildeOk from "../Administrator/icons/tildeOk.svg"
+//import { AxiosCreateFavourite, AxiosDeletedMark } from '../../axiosCollection/Cards/AxiosCards';
 
-function Card({ image, cardCategory, name, city, country, description, id, reference, qualification, features, latitude, longitude, address, favorite }) {
-    const [isLike, setLike] = useState(favorite);
+function Card({ setLastLocation, image, cardCategory, name, city, country, description, id, reference, qualification, features, latitude, longitude, address, favorite}) {
+    const role = sessionStorage.getItem("role");
+    const [isLike, setIsLike] = useState(favorite);
     const [mapIsOpen, setMapIsOpen] = useState(false)
     const [modalFavouriteIsOpen, setModalFavouriteIsOpen] = useState(false)
     const [despliegue, setDespliegue] = useState(false)
-    const [textoDespliegue, setTextoDespliegue] = useState("más...")    
+    const [textoDespliegue, setTextoDespliegue] = useState("más...")
+    const [errorMessage, setErrorMessage] = useState("");
+    const [admin, setAdmin] = useState(true);
+    const [modalConfirmDeletedIsOpen, setModalConfirmDeletedIsOpen] = useState(false)
+    const [modalProductSucceedIsOpen, setModalProductSucceedIsOpen] = useState(false)
+    const [modalErrorProductoConReservasIsOpen, setModalErrorProductoConReservasIsOpen] = useState(false) 
 
-    useEffect(() => {setLike(favorite)}, [favorite])
+    useEffect(() => {
+        if (sessionStorage.getItem("role") === "ADMIN") {
+            setAdmin(true)
+        } else {
+            setAdmin(false)
+        }
+    }, [role])
 
-    const handleToggle = () => { setLike(prevState=>!prevState); }
+    const handleToggleLike = () => {   
+        //AxiosCreateFavourite(id, setErrorMessage)  
+        setIsLike(prevState => !prevState)                         
+    }            
 
     const handleDespliegue = () => {
         setDespliegue(!despliegue);
@@ -26,7 +45,7 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
         } else {
             setTextoDespliegue("menos...");
         }
-    }    
+    }
 
     const openModalFavourite = (() => { setModalFavouriteIsOpen(true) })
     const closeModalFavourite = () => {
@@ -34,7 +53,6 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
     };
 
     const openMapModal = (() => {
-        console.log("Entro en el modal", mapIsOpen);
         setMapIsOpen(true)
     })
 
@@ -44,10 +62,44 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
 
     let loggued = sessionStorage.getItem("log");
 
+    function handleLastLocation() {
+        setLastLocation(`/product/${id}`)
+    }
+
+    const openModalSucceed = (() => {
+        setModalProductSucceedIsOpen(true)
+    })
+
+    const closeModalSucceed = (() => {
+        setModalProductSucceedIsOpen(false)
+        window.location.href = "/"
+    })
+
+    function openModalConfirmDeleted() {
+        setModalConfirmDeletedIsOpen(true)
+    }
+
+    function closeModalConfirmDeleted() {
+        setModalConfirmDeletedIsOpen(false)
+    }
+
+    const openModalErrorProductoConReservas = (() => {
+        setModalErrorProductoConReservasIsOpen(true)
+    })
+
+    const closeModalErrorProductoConReservas = (() => {
+        setModalErrorProductoConReservasIsOpen(false)
+    })
+
+    function eliminarProducto() {
+        closeModalConfirmDeleted()
+        //AxiosDeletedMark(id, openModalSucceed, openModalErrorProductoConReservas)
+    }
+
     return (
-        <div className={Styles.cardBox}>
+        <div className={Styles.cardBox} >
             <div className={Styles.cardImage}>
-                <svg className={Styles.iconHeart} onClick={loggued === "true" ? handleToggle : openModalFavourite} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 27 27"><path className={isLike ? Styles.heartColor2 : Styles.heartColor} id="heart" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" /></svg>
+                <svg className={Styles.iconHeart} onClick={loggued === "true" ? handleToggleLike : openModalFavourite} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 27 27"><path className={isLike ? Styles.heartColor2 : Styles.heartColor} id="heart" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z" /></svg>
                 <Modal open={modalFavouriteIsOpen} onClose={closeModalFavourite} center>
                     <div className={Styles.modalFavourite}>
                         <p>Para agregar favoritos, ingresa a tu cuenta</p>
@@ -58,7 +110,7 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
                                 </button>
                             </Link>
                             <Link to="/create" >
-                                <button className={Styles.create}>
+                                <button id className={Styles.create}>
                                     Crear Cuenta
                                 </button>
                             </Link>
@@ -81,7 +133,7 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
                             <p>{Math.floor(qualification)}</p>
                         </div>
                         <div className={Styles.cardScoreWords}>
-                            <ScoreDescription qualification={qualification} />                            
+                            <ScoreDescription qualification={qualification} />
                         </div>
                     </div>
                 </div>
@@ -92,15 +144,37 @@ function Card({ image, cardCategory, name, city, country, description, id, refer
                     <MapModal mapIsOpen={mapIsOpen} latitude={latitude} longitude={longitude} closeMapModal={closeMapModal} name={name} address={address} />
                 </div>
                 {/*<div className={Styles.cardIcons}>
-                    {features.map((feature) => <div className={Styles.cardFeatures} key={id}>{Icons(feature.id - 1)}</div>)}
+                    {features.map((feature, index) => <div className={Styles.cardFeatures} key={index}>{Icons(feature.id - 1, "#31363F")}</div>)}
     </div>*/}
                 <div className={Styles.cardDescription}>
-                    <p className={despliegue ? Styles.desplegado : Styles.noDesplegado}>{description}</p>
-                    <span onClick={handleDespliegue}>{textoDespliegue}</span>
+                    <textarea className={Styles.cardTextarea} readonly="readonly">{description}</textarea>
                 </div>
-                <Link to={`/product/${id}`} key={id} className={Styles.link}>
-                    <button className={Styles.cardButton2}>Ver más</button>
-                </Link>
+                <div className={Styles.buttonsBox}>
+                    <Link to={`/product/${id}`} key={id} className={Styles.link} onClick={handleLastLocation}>
+                        <button className={Styles.cardButton2}>Ver más</button>
+                    </Link>
+
+                    {admin &&
+                        <div className={Styles.buttonsAdminBox}>
+                            <Link to={`/product/update/${id}`} key={id} className={Styles.link} onClick={handleLastLocation}>
+                                <button className={`${Styles.cardButton2} ${Styles.cardButtonModify}`} >Modificar</button>
+                            </Link>
+                            <div className={Styles.link} onClick={handleLastLocation}>
+                                <button className={`${Styles.cardButton2} ${Styles.cardButtonModify}`} onClick={openModalConfirmDeleted}>Eliminar</button>
+                            </div>
+                            <Modal open={modalConfirmDeletedIsOpen} onClose={closeModalConfirmDeleted} center>
+                                <ConfirmProductModal accion="eliminar el producto" setModalConfirmIsOpen={setModalConfirmDeletedIsOpen} funcionProducto={eliminarProducto} closeModalConfirm={closeModalConfirmDeleted} />
+                            </Modal>
+                            <Modal open={modalProductSucceedIsOpen} onClose={closeModalSucceed} center>
+                                <ModalProductAviso title="Operación confirmada." message="Se ha borrado el producto exitosamente." closeModal={closeModalSucceed} icon={tildeOk} />
+                            </Modal>
+                            <Modal open={modalErrorProductoConReservasIsOpen} onClose={closeModalErrorProductoConReservas} center>
+                                <ModalProductAviso title="El producto no pudo borrarse." message="Tiene reservas asignadas." closeModal={closeModalErrorProductoConReservas} icon={"X"} />
+                            </Modal>
+                        </div>
+                    }
+                </div>
+
             </div>
 
         </div>

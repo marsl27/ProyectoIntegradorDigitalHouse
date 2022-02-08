@@ -5,7 +5,13 @@ exports[`Probando el componente <App/> Deberia mostrar <App/> correctamente 1`] 
   <LayoutPrincipal
     handleClean={[Function]}
     handleFavourite={[Function]}
+    iniciales=""
     isLogged={false}
+    setBookingWithoutLogin={[Function]}
+    setLastLocation={[Function]}
+    setLoading={[Function]}
+    userName=""
+    userSurname=""
   >
     <Switch>
       <Route
@@ -16,13 +22,27 @@ exports[`Probando el componente <App/> Deberia mostrar <App/> correctamente 1`] 
           category="All"
           city=""
           clickBusqueda={false}
+          clickSeeFavourites={false}
+          endDate={null}
           favourite={false}
           handleCategory={[Function]}
           handleCity={[Function]}
+          handleClean={[Function]}
           handleSearch={[Function]}
+          loading={false}
+          productoErroneo={false}
           search={false}
           setActiveCreate={[Function]}
           setActiveLogin={[Function]}
+          setCategory={[Function]}
+          setCity={[Function]}
+          setEndDate={[Function]}
+          setFavourite={[Function]}
+          setLastLocation={[Function]}
+          setProductoErroneo={[Function]}
+          setSearch={[Function]}
+          setStartDate={[Function]}
+          startDate={null}
         />
       </Route>
       <Route
@@ -37,7 +57,33 @@ exports[`Probando el componente <App/> Deberia mostrar <App/> correctamente 1`] 
       />
       <Route
         component={[Function]}
+        exact={true}
+        path="/product/create"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/product/update/:id"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/product/update"
+      />
+      <Route
+        exact={true}
         path="/product/:id"
+        render={[Function]}
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/product/:id/reserva"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/mybookings"
       />
       <Route
         path="*"

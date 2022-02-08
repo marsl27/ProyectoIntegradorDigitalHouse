@@ -5,7 +5,9 @@ const MenuButtonWrapper = styled.button`
     background-color:rgb(255,255,255);
     border: none;
     box-shadow: 0px 0px 0px rgb(50, 50, 50);
+    cursor:pointer;
     margin-top: 1rem;
+    width: clamp(33px,5.2vw,161px);
     
     @media only screen and (min-width: 415px) {
         display: none;

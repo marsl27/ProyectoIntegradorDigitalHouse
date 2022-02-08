@@ -1,11 +1,11 @@
 /*COMPONENTE CARDS*/
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/"
+//const baseUrl = "http://localhost:8080/"
 
 
 function AxiosGetProductosRecomendados( setData, setLoading, setTitulo, setErrorMessage ){
-    const baseUrlProductosRecomendados = `${baseUrl}products/get/recommended`;
+    /*const baseUrlProductosRecomendados = `${baseUrl}products/get/recommended`;*/
 
     axios.get("mock/products.json")
     .then(response => {
@@ -50,8 +50,8 @@ function AxiosGetProductosPorCiudad(setData, setLoading, setTitulo, setErrorMess
         });
 }
 
-function AxiosGetProductosFavoritos(setData, setLoading, setTitulo, setErrorMessage){
-/*NO FUNCIONA PORQUE FALTA LA LOGICA DEL JWT */
+/*function AxiosGetProductosFavoritos(setData, setLoading, setTitulo, setErrorMessage){
+NO FUNCIONA PORQUE FALTA LA LOGICA DEL JWT 
 
     const baseUrlFavourite = `${baseUrl}users/getFavorites`;
 
@@ -65,6 +65,6 @@ function AxiosGetProductosFavoritos(setData, setLoading, setTitulo, setErrorMess
             setErrorMessage(error.message);
             setLoading(false);
         });
-}
+}*/
 
-export {AxiosGetProductosRecomendados, AxiosGetProductosPorCategoria, AxiosGetProductosPorCiudad, AxiosGetProductosFavoritos}
+export {AxiosGetProductosRecomendados, AxiosGetProductosPorCategoria, AxiosGetProductosPorCiudad/*, AxiosGetProductosFavoritos*/}

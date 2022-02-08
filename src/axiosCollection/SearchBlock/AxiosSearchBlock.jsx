@@ -2,7 +2,7 @@ import axios from "axios";
 
 //const baseURL = "http://localhost:8080/cities/all";
 
-function AxiosGetTodasLasCiudades(setData, setErrorMessage){
+function AxiosGetAllCities(setData, setErrorMessage){
     axios
     .get("mock/cities.json")
     .then((response) => {
@@ -13,4 +13,4 @@ function AxiosGetTodasLasCiudades(setData, setErrorMessage){
     });
 }
 
-export {AxiosGetTodasLasCiudades}
+export {AxiosGetAllCities}

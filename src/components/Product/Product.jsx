@@ -11,10 +11,11 @@ import InfoBar from "./InfoBar";
 import StylesApp from "../../App.module.css";
 import QualificationBar from "./QualificationBar";
 import Spinner from "../spinner/Spinner";
-import { AxiosGetProductoPorId } from "../../axiosCollection/Product/axiosCollection"
-
+import { AxiosGetProductById } from "../../axiosCollection/Product/AxiosProduct"
 
 function Product(props) {
+    /* eslint-disable no-unused-vars */
+
     /*ESTADOS PARA EL CAROUSEL */
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
@@ -28,7 +29,6 @@ function Product(props) {
     const [valueDate, setValueDate] = useState([sessionStorage.getItem("startDate") != null ? sessionStorage.getItem("startDate") : null, sessionStorage.getItem("endDate") != null ? sessionStorage.getItem("endDate") : null]);
 
     let { id } = useParams();
-    
     const [prod, setProd] = useState({
         id: id,
         name: "",
@@ -49,10 +49,9 @@ function Product(props) {
     });
 
     useEffect(() => {
-        AxiosGetProductoPorId(id, setProd, setLoading, setErrorMessage)
+        AxiosGetProductById(id, setProd, setLoading, setErrorMessage)
     }, [id]);
-
-
+   
     return (
         (errorMessage && loading) ?
             <section className={StylesApp.delimiter}>
@@ -60,16 +59,16 @@ function Product(props) {
             </section>
             :
             <section>
-                {loading ? (                    
+                {loading ? (
                     <Spinner />
                 ) : (
                     <>
-                        <TitleBar category={prod.category.title} name={prod.name} goBack={props.history.goBack} />
-                        <ScoreBar reference={prod.reference} city={prod.city} qualification={prod.qualification} />
-                        <ImageBar images={prod.images} viewerIsOpen={viewerIsOpen} setViewerIsOpen={setViewerIsOpen} setShareIsOpen={setShareIsOpen} setCurrentImage={setCurrentImage} id={prod.id} shareIsOpen={shareIsOpen} />
+                        <TitleBar category={prod.category.title} name={prod.name} goBack={props.goBack} />
+                        <ScoreBar reference={prod.reference} city={prod.city} qualification={prod.qualification * 2} />
+                        <ImageBar setLastLocation={props.setLastLocation} setBookingWithoutLogin={props.setBookingWithoutLogin} images={prod.images} viewerIsOpen={viewerIsOpen} setViewerIsOpen={setViewerIsOpen} setShareIsOpen={setShareIsOpen} setCurrentImage={setCurrentImage} id={prod.id} shareIsOpen={shareIsOpen} />
                         <DescriptionBar city={prod.city} description={prod.description} />
                         <FeaturesBar features={prod.features} />
-                        <Datebar valueDate={valueDate} setValueDate={setValueDate} id={id} />
+                        <Datebar setLastLocation={props.setLastLocation} setBookingWithoutLogin={props.setBookingWithoutLogin} valueDate={valueDate} setValueDate={setValueDate} id={id} />
                         {(props.latitude !== null || props.longitude !== null) &&
                             <MapBar city={prod.city} latitude={prod.latitude} longitude={prod.longitude} name={prod.name} address={prod.address} />
                         }

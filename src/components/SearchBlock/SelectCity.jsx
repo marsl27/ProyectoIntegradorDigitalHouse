@@ -1,18 +1,43 @@
-import React, {useState, useEffect} from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useRef } from "react";
 import Select from 'react-select';
 import CityOption from './CityOption';
 import vector from './img/Vector.png'
 import localizador from './img/localizador.png'
-import { AxiosGetTodasLasCiudades } from "../../axiosCollection/SearchBlock/axiosCollection";
+import { AxiosGetAllCities } from "../../axiosCollection/SearchBlock/AxiosSearchBlock";
 
-function SelectCity({handleCity}) {
-  
-  const [data, setData] = useState([]);  
+
+function SelectCity({ handleCity, borrarCity, setBorrarCity }) {
+
+  const [data, setData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    AxiosGetTodasLasCiudades(setData, setErrorMessage)
+    AxiosGetAllCities(setData, setErrorMessage)
   }, []);
+
+  const selectInputRef = useRef();
+
+
+  useEffect(() => {
+    if (borrarCity) {
+      console.log(selectInputRef.current.Select);
+      selectInputRef.current.clearValue()
+      setBorrarCity(false);
+    }
+  })
+
+
+  console.log(borrarCity);
+
+
+
+  /*
+  setOnClear(handleClick)
+
+  function handleClick(){
+    selectInputRef.current.select.clearValue()
+  }*/
 
   const customStyles = {
     option: () => ({
@@ -41,7 +66,7 @@ function SelectCity({handleCity}) {
         cursor: 'pointer',
       },
       ':last-child': {
-        borderBottom: 'none',        
+        borderBottom: 'none',
       }
     }),
 
@@ -51,7 +76,7 @@ function SelectCity({handleCity}) {
 
     valueContainer: () => ({
       alignItems: 'center',
-      backgroundColor: '#FFFFFF',      
+      backgroundColor: '#FFFFFF',
       border: 'none',
       borderRadius: '5px',
       display: 'flex',
@@ -60,13 +85,14 @@ function SelectCity({handleCity}) {
       overflow: 'hidden',
       padding: '0 0 0 0%',
       textAlign: 'left',
-      width: '100%',      
+      width: '100%',
     }),
 
     control: (styles) => ({
       ...styles,
       backgroundColor: '#FFFFFF',
       boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.15)',
+      cursor: "pointer",
       display: 'inline-block',
       fontWeight: 500,
       height: '40px',
@@ -75,7 +101,7 @@ function SelectCity({handleCity}) {
       padding: '0.6rem 1rem 0.6rem 2.5rem',
       whiteSpace: 'nowrap',
       width: '100%',
-        ':before': {
+      ':before': {
         backgroundImage: `url(${localizador})`,
         backgroundRepeat: 'no-repeat',
         borderRadius: '10px',
@@ -103,27 +129,33 @@ function SelectCity({handleCity}) {
 
     singleValue: () => ({
       display: 'flex',
-    }),
-
+    })
   }
 
   const options = data.map((city) => {
     return {
       value: `${city.name}, ${city.country}`,
-      label: <CityOption city={city.name} id ={city.id} handleCity={handleCity} country={city.country} />,
+      label: <CityOption city={city.name} id={city.id} handleCity={handleCity} country={city.country} />,
     };
   })
 
+
+  /*<button onClick={onClear}>Clear Value</button>*/
+
   return (
-    <Select
-      placeholder='¿A dónde vamos?'
-      styles={customStyles}      
-      options={options}      
-      isSearchable
-      isClearable
-      getOptionValue={(option) => `${option.value}:`      
-      }
-    />
+    <>
+      <Select
+        ref={selectInputRef}
+        placeholder='¿A dónde vamos?'
+        styles={customStyles}
+        options={options}
+        isSearchable
+        isClearable
+        getOptionValue={(option) => `${option.value}:`
+        }
+      />
+
+    </>
   );
 }
 

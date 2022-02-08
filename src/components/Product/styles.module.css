@@ -1,8 +1,15 @@
 /* Estilos de titleBar */
 
-.titleBar {
-  background-color: var(--tertiary-color);
+.titleBar {  
   color: white;
+  background: linear-gradient(-45deg, var(--tertiary-color),  rgb(236, 236, 236), var(--tertiary-color), var(--tertiary-color));
+  background-size: 800%;
+  animation: fondo 2s ease-in-out; 
+}
+
+@keyframes fondo {
+  0% { background-position: 0 50% } 
+  100% { background-position: 120% 50% }   
 }
 
 .titleBar .titleBarChild {
@@ -11,8 +18,9 @@
   justify-content: flex-start;
   min-height: 60px;
   padding-left: clamp(20px, 3.9%, 40px);
-  padding-right: clamp(20px, 3.9%, 40px);
+  padding-right: clamp(20px, 3.9%, 40px);  
 }
+
 .titleBarChild div p {
   text-transform: uppercase;
 }
@@ -215,6 +223,9 @@
   flex-direction: column;
   justify-content: center;
   height:22vh;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
   width:39vw;
 }
 
@@ -261,6 +272,11 @@ div.buttons button.login:hover {
   border: 2px solid  #b9411f;
 }
   
+div.buttons a:focus {
+  outline: none;
+}
+
+
 div.buttons button.create:hover {
   background-color: #ffd6c6;
   border: 2px solid  #ffd6c6;
@@ -302,6 +318,10 @@ div.buttons button.create:hover {
 
 .shareItem a:focus {
   outline: none;
+}
+
+.shareItem a:hover {
+  cursor: pointer;
 }
 
 .closeButton {
@@ -389,7 +409,7 @@ div.buttons button.create:hover {
   text-transform: uppercase;
 }
 
-.featuresBarChild div.featureBox img {
+.featureIcon {
   margin-right: 20px;
 }
 
@@ -620,9 +640,16 @@ div.buttons button.create:hover {
 
 .qualificationButtons {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;    
   width: 50%;  
+}
+
+.containerButtons{
+  display: flex;
+  justify-content: space-evenly;
+  width:70%;
 }
 
 .qualificationReset, .qualificationSubmit {
@@ -654,7 +681,8 @@ div.buttons button.create:hover {
   font-size: var(--text2);
   font-weight: var(--font-bold);
   text-align: center;
-  max-width: 30%;
+  max-width: 70%;
+  margin-top: 20px;
 }
 
 /* Estilos infoBar */
@@ -751,8 +779,6 @@ div.buttons button.create:hover {
   .contenedorReserva {    
     background-color: white;
   }  
-
-  
 }
 
 @media all and (min-width:720px){
@@ -816,6 +842,13 @@ justify-content: space-evenly;
   
   .qualificationBarChild h2 {    
     font-size: var(--heading3);    
+  }
+
+  .containerButtons{
+    width: 100%;
+  }
+  .qualificationConfirm{
+    max-width: 100%;
   }
 }
 
@@ -910,7 +943,19 @@ justify-content: space-evenly;
     width: 60%;
     margin: 1% 0;
   }
-  
+  .qualificationConfirm{
+    max-width: 55%;
+  }
+  .containerButtons{
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .featuresBarChild .icons {
+    align-items: flex-start;
+    flex-direction: column;
+  }
   
 }
 
@@ -998,4 +1043,15 @@ justify-content: space-evenly;
     width: 90%;
   }
   
+  .titleBarChild .iconLocation {
+    width: 21px;
+  }
+
+  .titleBarTitles h2{
+    font-size: 20px;
+  }
+
+  .info div{
+    width: 100%;
+  }
 }

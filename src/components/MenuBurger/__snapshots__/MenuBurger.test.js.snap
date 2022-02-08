@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Probando el componente <HeaderWrapper Deberia mostrar <HeaderWrapper/> correctamente 1`] = `
-<header
-  className="sc-dkPtRN cncBBD"
-/>
-`;
-
 exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> correctamente 1`] = `
 <styled.nav
   className="containerMobile"
@@ -37,9 +31,7 @@ exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> corr
         <h3
           className="name"
         >
-          Grupo
            
-          Uno
         </h3>
       </div>
     </div>
@@ -55,18 +47,30 @@ exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> corr
     <div
       className="menuFavoritos hide "
     >
-      <p>
-        Favoritos
-      </p>
+      <Link
+        to="/"
+      >
+        <p>
+          Favoritos
+        </p>
+      </Link>
       <img
         alt=""
         src="Line.png"
       />
+      <Link
+        to="/mybookings"
+      >
+        <p>
+          Mis reservas
+        </p>
+      </Link>
     </div>
     <div
       className="botones null null"
     >
       <Link
+        id="createC"
         to="/create"
       >
         <p
@@ -114,6 +118,48 @@ exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> corr
     <div
       className="iconsMobile"
     >
+      <a
+        href="https://www.facebook.com/profile.php?id=100074545225635"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          src="IconFb.png"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/world-guest-2b195b225/"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt=""
+          src="IconLinkedIn.png"
+        />
+      </a>
+      <a
+        href="https://twitter.com/WorldGuest2"
+        rel="noreferrer"
+        target="_blank"
+      >
+         
+        <img
+          alt=""
+          src="IconTw.png"
+        />
+      </a>
+      <a
+        href="https://www.instagram.com/world_guest_booking/"
+        rel="noreferrer"
+        target="_blank"
+      >
+         
+        <img
+          alt=""
+          src="IconIg.png"
+        />
+      </a>
       <img
         alt="iconSocial"
         className="iconSocial"
@@ -125,22 +171,6 @@ exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> corr
         setShareIsOpen={[Function]}
         shareIsOpen={false}
       />
-      <img
-        alt=""
-        src="IconFb.png"
-      />
-      <img
-        alt=""
-        src="IconLinkedIn.png"
-      />
-      <img
-        alt=""
-        src="IconTw.png"
-      />
-      <img
-        alt=""
-        src="IconIg.png"
-      />
     </div>
   </div>
 </styled.nav>
@@ -148,7 +178,7 @@ exports[`Probando el componente <MenuBurger/> Deberia mostrar <MenuBurger/> corr
 
 exports[`Probando el componente <MenuBurgerWrapper Deberia mostrar <MenuBurgerWrapper/> correctamente 1`] = `
 <nav
-  className="sc-bdvvtL gfcYty"
+  className="sc-bdvvtL eRUdUI"
 />
 `;
 

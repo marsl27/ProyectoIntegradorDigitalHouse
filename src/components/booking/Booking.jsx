@@ -11,11 +11,18 @@ import CalendarBar from "./CalendarBar.jsx";
 import ArrivalTimeBar from "./ArrivalTimeBar";
 import DetailBar from "./DetailBar";
 
+
 export default function Booking(props) {
 
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
     const [valueDate, setValueDate] = useState([sessionStorage.getItem("startDate") != null ? sessionStorage.getItem("startDate") : null, sessionStorage.getItem("endDate") != null ? sessionStorage.getItem("endDate") : null]);
+    const [arrivalSchedule, setArrivalSchedule] = useState("")
+    const [name, setName] = useState(sessionStorage.getItem("name"))
+    const [surname, setSurname] = useState(sessionStorage.getItem("surname"))
+    const [email, setEmail] = useState(sessionStorage.getItem("email"))
+    const [city, setCity] = useState("")
+    const [errorBooking, setErrorBooking] = useState("")
 
     let { id } = useParams();
     console.log("id", useParams())
@@ -40,7 +47,7 @@ export default function Booking(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/products/get/${id}`)
+            .get(`http://worldguestbooking.com.ar:8080/products/get/${id}`)
             .then((response) => {
                 setProd(response.data);
                 setLoading(false);
@@ -48,7 +55,7 @@ export default function Booking(props) {
             .catch((error) => {
                 setErrorMessage("No es posible mostrar la página");
             });
-    },[id]);
+    }, [id]);
 
     const formatDate = (date) => {
         if (date != null) {
@@ -56,10 +63,12 @@ export default function Booking(props) {
             const arrayDate = dateString.split(" ");
             return arrayDate[2] + "/" + arrayDate[1] + "/" + arrayDate[3];
         }
-        else {return ""}
+        else { return "" }
     }
-  
-    if (errorMessage && loading) {                      
+
+    console.log(formatDate(valueDate[0]));
+
+    if (errorMessage && loading) {
         return (
             <section className={StylesApp.delimiter}>
                 <h1>{errorMessage}</h1>
@@ -69,28 +78,30 @@ export default function Booking(props) {
 
         return (
             <>
-            {console.log("valueDate", valueDate)}
+                {console.log("valueDate", valueDate)}
                 <section className={`${Styles.booking} ${StylesApp.delimiter}`}>
-                    <div className={`${Styles.bookingChild} ${StylesApp.delimiterChild}`}>
-                        {loading ? <Spinner /> : (
-                            <>
-                                <TitleBar category={prod.category.title} name={prod.name} goBack={props.history.goBack} />
-                                <h2>Completá tus datos</h2>
-                                <div className={Styles.container}>
-                                    <div>
-                                        <FormBooking />
-                                        <CalendarBar valueDate={valueDate} setValueDate={setValueDate} />
-                                        <ArrivalTimeBar />
-                                    </div>
-                                    <div>
-                                        <DetailBar image={prod.images[0].url} category={prod.category.title} city={prod.city.name} country={prod.city.country} reference={prod.reference} qualification={prod.qualification} name={prod.name} checkin={formatDate(valueDate[0])} checkout={formatDate(valueDate[1])} />
-                                    </div>
+                    {loading ? <Spinner /> : (<>
+                        <TitleBar category={prod.category.title} name={prod.name} goBack={props.history.goBack} />
+                        <div className={`${Styles.bookingChild} ${StylesApp.delimiterChild}`}>
+
+
+                           
+                            <h2>Completá tus datos</h2>
+                            <div className={Styles.container}>
+                                <div>
+                                    <FormBooking name={name} setName={setName} surname={surname} setSurname={setSurname} email={email} setEmail={setEmail} city={city} setCity={setCity} />
+                                    <CalendarBar valueDate={valueDate} setValueDate={setValueDate} id={id} />
+                                    <ArrivalTimeBar setArrivalSchedule={setArrivalSchedule} />
                                 </div>
-                            </>
-                        )}
-                    </div>
+                                <div>
+                                    <DetailBar nameUser={name} surnameUser={surname} emailUser={email} cityUser={city} setErrorBooking={setErrorBooking} errorBooking={errorBooking} id={id} image={prod.images[0].url} category={prod.category.title} city={prod.city.name} country={prod.city.country} reference={prod.reference} qualification={prod.qualification * 2} name={prod.name} checkin={formatDate(valueDate[0])} checkout={formatDate(valueDate[1])} arrivalSchedule={arrivalSchedule} />
+                                </div>
+                            </div>
+                        </div>
+                        <InfoBar health={prod.health} rules={prod.rules} politics={prod.politics} />
+                    </>
+                    )}
                 </section>
-                <InfoBar health={prod.health} rules={prod.rules} politics={prod.politics} />
             </>
         )
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://worldguestbooking.com.ar:8080/"
+//const baseUrl = "http://worldguestbooking.com.ar:8080/"
 
 function AxiosLogin(email, password, setFormValido, setLog, setError, setEmail, setPassword, setLoading, lastLocation) {
     axios.get("mock/login.json")
@@ -41,30 +41,31 @@ function AxiosLogin(email, password, setFormValido, setLog, setError, setEmail, 
                 sessionStorage.removeItem("token")
             }*/
         })
+
 }
 
-function AxiosCreate(name, surname, email, password, setFormValido, setLog, setError, setEmail, setPassword, setLoading, lastLocation, openModalConfirm) {
+/*function AxiosCreate(name, surname, email, password, setFormValido, setLog, setError, setEmail, setPassword, setLoading, lastLocation,openModalConfirm) {
     axios.post(baseUrl + "users/create", {
         "name": `${name}`,
         "surname": `${surname}`,
         "email": `${email}`,
         "password": `${password}`
     })
-        .then(response => {
-            console.log(response);
-            setLoading(false);
-            openModalConfirm(true);
-        })
-        .catch(error => {
-            setLoading(false)
-            console.log(error.response);
-            if (error.response.status !== 200) {
-                setEmail({ valido: false, error: "El usuario ya existe." })
-                setFormValido(false)
-                sessionStorage.setItem("log", "false");
-                sessionStorage.removeItem("token")
-            }
-        })
-}
+    .then(response => {
+        console.log(response);
+        setLoading(false);
+        openModalConfirm(true);
+    })
+    .catch(error => {
+        setLoading(false)
+        console.log(error.response);
+        if (error.response.status !== 200) {
+            setEmail({ valido: false, error: "El usuario ya existe."})
+            setFormValido(false)
+            sessionStorage.setItem("log", "false");
+            sessionStorage.removeItem("token")
+        }
+    })
+}*/
 
-export { AxiosLogin, AxiosCreate }
+export { AxiosLogin /*, AxiosCreate*/ }

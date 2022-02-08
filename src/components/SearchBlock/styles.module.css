@@ -1,12 +1,19 @@
 .container {
-  align-items: center;
-  background-color: var(--tertiary-color);
+  align-items: center;  
   display: flex;
   justify-content: center;
   padding: 10px 0 25px 0; 
   position: relative;
   text-align: center;
-  width: 100%;
+  width: 100%; 
+  background: linear-gradient(-45deg, var(--tertiary-color),  rgb(236, 236, 236), var(--tertiary-color), var(--tertiary-color));
+  background-size: 800%;
+  animation: fondo 4s ease-in-out; 
+}
+
+@keyframes fondo {
+  0% { background-position: 0 50% } 
+  100% { background-position: 120% 50% }   
 }
 
 .subContainer {
@@ -19,8 +26,7 @@
   width: 100%;
 }
 
-.gridContainer {
-  background-color: var(--tertiary-color);
+.gridContainer {  
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -45,6 +51,7 @@ form.gridContainer > div {
   border-radius: 5px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
   color: var(--secondary-color);
+  cursor: pointer;
   font-size: var(--text2);
   font-weight: var(--font-medium);
   height: 100%;
@@ -70,6 +77,7 @@ form.gridContainer > div {
 .selectedDatesButton {
   color: #ffffff;
   background: var(--primary-color);
+  border:none;
   border-radius: 5px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
   font-size: var(--button2);
@@ -83,6 +91,7 @@ form.gridContainer > div {
 
 .buttonSearch:hover {
   transform:scale(1.05);
+  cursor: pointer;
 }
 
 .buttonSearch:active{
